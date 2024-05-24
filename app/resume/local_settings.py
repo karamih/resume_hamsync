@@ -12,7 +12,7 @@ ALLOWED_HOSTS = []
 
 NAME = 'resume'
 USER = 'postgres'
-PASS = 'Pg123456'
+PASS = 'apex'
 HOST = 'localhost'
 PORT = '5432'
 
