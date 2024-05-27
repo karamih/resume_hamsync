@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 User = get_user_model()
 
 
 class ResumeModel(models.Model):
-    user = models.ForeignKey(to=User, related_name='resumes', verbose_name=_('user'), on_delete=models.CASCADE)
+    user = models.OneToOneField(to=User, related_name='resumes', verbose_name=_('user'), on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True)
     updated_time = models.DateTimeField(auto_now=True)
 
@@ -25,8 +26,8 @@ class EducationModel(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=50)
     description = models.TextField(verbose_name=_('description'), max_length=200, blank=True, null=True)
     college_name = models.CharField(verbose_name=_('college name'), max_length=50)
-    date_start = models.DateTimeField(verbose_name=_('date start'))
-    date_end = models.DateTimeField(verbose_name=_('date end'), null=True, blank=True)
+    date_start = models.DateField(verbose_name=_('date start'))
+    date_end = models.DateField(verbose_name=_('date end'), null=True, blank=True)
 
     class Meta:
         db_table = 'educations'
@@ -54,8 +55,14 @@ class ImportantLinkModel(models.Model):
 class SkillModel(models.Model):
     resume = models.ForeignKey(to=ResumeModel, related_name='skills', verbose_name=_('resume'),
                                on_delete=models.CASCADE)
-    name = models.CharField(verbose_name=_('name'), max_length=50)
-    rate = models.IntegerField(verbose_name=_('rate'))
+    name = models.CharField(verbose_name=_('name'), max_length=50),
+    rate = models.PositiveIntegerField(
+        verbose_name=_('rate'),
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(5)
+        ]
+    )
 
     class Meta:
         db_table = 'skills'
@@ -72,8 +79,8 @@ class ProjectModel(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=50)
     description = models.TextField(verbose_name=_('description'), max_length=200, blank=True, null=True)
     url = models.URLField(verbose_name=_('url'), max_length=70)
-    date_start = models.DateTimeField(verbose_name=_('date start'))
-    date_end = models.DateTimeField(verbose_name=_('date end'), null=True, blank=True)
+    date_start = models.DateField(verbose_name=_('date start'))
+    date_end = models.DateField(verbose_name=_('date end'), null=True, blank=True)
 
     class Meta:
         db_table = 'projects'
@@ -90,8 +97,8 @@ class WorkExModel(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=50)
     description = models.TextField(verbose_name=_('description'), max_length=200, blank=True, null=True)
     company_name = models.CharField(verbose_name=_('company name'), max_length=50)
-    date_start = models.DateTimeField(verbose_name=_('date start'))
-    date_end = models.DateTimeField(verbose_name=_('date end'), null=True, blank=True)
+    date_start = models.DateField(verbose_name=_('date start'))
+    date_end = models.DateField(verbose_name=_('date end'), null=True, blank=True)
 
     class Meta:
         db_table = 'work_experiences'

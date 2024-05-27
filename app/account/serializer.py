@@ -1,7 +1,10 @@
+from django.db import transaction
 from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+
+from user_resume.models import ResumeModel
 
 User = get_user_model()
 
@@ -25,12 +28,18 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        user = User.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name']
-        )
-        user.set_password(validated_data['password'])
-        user.save()
+        with transaction.atomic():
+            validated_data.pop('confirm_password')
+
+            user = User.objects.create(
+                username=validated_data['username'],
+                email=validated_data['email'],
+                first_name=validated_data['first_name'],
+                last_name=validated_data['last_name']
+            )
+            user.set_password(validated_data['password'])
+            user.save()
+
+            ResumeModel.objects.create(user=user)
+
         return user
