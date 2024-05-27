@@ -8,7 +8,7 @@ SECRET_KEY = "django-insecure-7%et0jd4!+kg5(q+o(g+gl13*7q)#!*4t(-ox#v6++1+8pqf*g
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = []
 
 NAME = 'resume'
 USER = 'postgres'
