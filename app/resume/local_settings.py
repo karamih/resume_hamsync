@@ -8,7 +8,7 @@ SECRET_KEY = "django-insecure-7%et0jd4!+kg5(q+o(g+gl13*7q)#!*4t(-ox#v6++1+8pqf*g
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 NAME = 'resume'
 USER = 'postgres'
@@ -17,6 +17,6 @@ HOST = 'localhost'
 PORT = '5432'
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
 }
