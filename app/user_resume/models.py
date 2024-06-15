@@ -55,7 +55,7 @@ class ImportantLinkModel(models.Model):
 class SkillModel(models.Model):
     resume = models.ForeignKey(to=ResumeModel, related_name='skills', verbose_name=_('resume'),
                                on_delete=models.CASCADE)
-    name = models.CharField(verbose_name=_('name'), max_length=50),
+    name = models.CharField(verbose_name=_('name'), max_length=50)
     rate = models.PositiveIntegerField(
         verbose_name=_('rate'),
         validators=[

@@ -1,10 +1,13 @@
 from django.urls import path
 
-from .views import (ProjectView, ProjectListView, SkillView, SkillListView,
-                    ImportantLinkView, ImportantLinkListView, EducationView, EducationListView, WorkExView,
-                    WorkExListView)
+from .views import (
+    ResumeView, ProjectView, ProjectListView, SkillView, SkillListView,
+    ImportantLinkView, ImportantLinkListView, EducationView, EducationListView, WorkExView,
+    WorkExListView)
 
 urlpatterns = [
+    path('resume', ResumeView.as_view(), name='resume-detail'),
+
     path('projects', ProjectListView.as_view(), name='project-list'),
     path('projects/<int:pk>', ProjectView.as_view(), name='project-details'),
 

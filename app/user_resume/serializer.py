@@ -9,11 +9,9 @@ class EducationSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    resume = serializers.PrimaryKeyRelatedField(read_only=True)
-
     class Meta:
         model = ProjectModel
-        fields = ['id', 'title', 'description', 'url', 'date_start', 'date_end', 'resume']
+        fields = ['id', 'title', 'description', 'url', 'date_start', 'date_end']
 
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -43,4 +41,4 @@ class ResumeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ResumeModel
-        fields = ['id', 'user', 'created_at', 'updated_at', 'educations', 'projects', 'skills', 'links', 'experiences']
+        fields = ['id', 'user', 'educations', 'projects', 'skills', 'links', 'experiences']

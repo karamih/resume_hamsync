@@ -15,7 +15,7 @@ class ResumeView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ResumeSerializer
 
-    def get_queryset(self):
+    def get_object(self):
         return ResumeModel.objects.get(user=self.request.user)
 
 
@@ -73,7 +73,7 @@ class ImportantLinkListView(generics.ListCreateAPIView):
 
 class ImportantLinkView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = ImportantLinkModel
+    serializer_class = ImportantLinkSerializer
 
     def get_queryset(self):
         return ImportantLinkModel.objects.filter(resume__user=self.request.user)
