@@ -12,11 +12,11 @@ ALLOWED_HOSTS = []
 
 NAME = 'resume'
 USER = 'postgres'
-PASS = 'Pg123456'
+PASS = 'apex'
 HOST = 'localhost'
 PORT = '5432'
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
 }
